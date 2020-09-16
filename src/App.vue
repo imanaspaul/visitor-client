@@ -1,32 +1,33 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <NavBar/>
+   <div class="container">
+      <div class="my-4">
+         <SuccessAlert v-if="isSuccess"/>
+        <ErrorAlert v-if="isError"/>
+      </div>
+      <router-view/>
+   </div>
   </div>
 </template>
 
+<script>
+import { mapState } from 'vuex'
+import NavBar from '@/components/global/NavBar.vue'
+
+export default {
+  components : {
+    NavBar,
+    SuccessAlert: () => import('@/components/global/SuucessAlert'),
+    ErrorAlert: () => import('@/components/global/ErrorAlert'),
+  },
+  computed: mapState([
+      'isSuccess',
+      'isError'
+  ]),
+}
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
