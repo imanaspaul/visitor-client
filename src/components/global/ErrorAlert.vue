@@ -1,5 +1,5 @@
 <template>
     <div class="alert alert-warning" role="alert">
-        Something went worng. Fill the correct details and please try again
+        Something went worng. please try again
     </div>
 </template>

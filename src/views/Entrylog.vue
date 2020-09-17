@@ -1,6 +1,7 @@
 <template>
   <div class="entry">
-    <h1 v-if="isLoading">Loading</h1>
+    <SearchInput/>
+    <Skeleton v-if="isLoading"/>
     <div v-else>
       <div class="row">
        <table class="table table-hover">
@@ -39,14 +40,16 @@
 </template>
 
 <script>
-// @ is an alias to /src
+import SearchInput from '@/components/SearchInput.vue'
+import Skeleton from '@/components/global/Skeleton.vue'
 import { mapState } from 'vuex'
 
 
 export default {
-  name: 'Home',
+  name: 'Entrylog',
   components: {
-    
+    Skeleton,
+    SearchInput
   },
   computed: mapState([
     'allEntry',
@@ -57,13 +60,13 @@ export default {
   },
   methods:{
     UpdateData(entry){
+      // Check the checkout time is already there or not
       if(entry.checkout_time === null){
-        if (confirm('Are you sure this person is checking out not?')) {
+        if (confirm('Are you sure this person is checking out now?')) {
           const data = {
             entry_id : entry.id
           }
           this.$store.dispatch("updateEntry", data)
-          // this.$store.dispatch('getEntries');
         }
       }
     }
