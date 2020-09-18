@@ -1,5 +1,15 @@
 <template>
     <div class="alert alert-warning" role="alert">
-        Something went worng. please try again
+        {{errorMsg}}
     </div>
 </template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+    computed: mapState([
+    'errorMsg'
+  ]),
+}
+</script>

@@ -14,6 +14,7 @@ export default new Vuex.Store({
     isLoading : true,
     isError: false,
     isSuccess: false,
+    errorMsg: null,
     allEntry : [],
     allVisitor : []
   },
@@ -32,8 +33,11 @@ export default new Vuex.Store({
       state.isError = false
       state.isSuccess = false
     },
-
-    SET_ERROR(state){
+    SET_ERRORMSG(state, data){
+      console.log(data);
+      state.errorMsg = data
+    },
+    SET_ERROR(state, data){
       state.isError = true
       state.isSuccess = false
     },
@@ -83,9 +87,11 @@ export default new Vuex.Store({
         .then(() => {
           commit('SET_SUCCESS')
         })
-        .catch(err=>{
-          console.log(err.__proto__)
+        .catch((error)=>{
+          const msg = error.response.data.message
+          console.log(msg);
           commit('SET_ERROR')
+          commit("SET_ERRORMSG", msg)
         })
     },
     // Updating the entry checkout time
